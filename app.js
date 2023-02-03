@@ -17,10 +17,8 @@ mongoose.connect(process.env.DB_URI, {
   )
 .then(() => console.log('connection successful'))
 .catch((err) => console.error(err));
-var app = express();
-
-
 var db = mongoose.connection;
+var app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
