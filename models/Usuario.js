@@ -1,15 +1,14 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-var PostSchema = new Schema({
-  user: {
-    type: Schema.ObjectId,
-    ref: "Usuario",
-  },
-  dni: { type: String, required: true },
-  nombre: String,
-  apellidos: String,
-  direcion: String,
-  correo: String,
-  telefono: String,
+var UsuarioSchema = new Schema({
+  dni: { type: String, required: true, index:{
+    unique:true
+  }
+},
+  nombre: {type: String},
+  apellidos: {type: String},
+  direcion: {type: String},
+  correo: {type: String},
+  telefono: {type: Number}
 });
-module.exports = mongoose.model("Usuario", PostSchema);
+module.exports = mongoose.model("Usuario", UsuarioSchema);

@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var Usuario = require("../models/Usuario.js");
+var Usuario = require("../models/Usuario");
 
 var VehicleSchema = new Schema({
   Matricula: { type: String, required: true, index: { unique: true } },
@@ -14,7 +14,7 @@ var VehicleSchema = new Schema({
   Color: { type: String },
   Descripcion: { type: String },
   Precio: { type: Number },
-  Anyo: { type: Date },
+  Anyo: { type: Date }
 });
 
 module.exports = mongoose.model("Vehículo ", VehicleSchema);

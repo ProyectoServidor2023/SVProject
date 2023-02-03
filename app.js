@@ -3,11 +3,14 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-
+var VehiculoRouter = require("./routes/vehiculos");
+var VentaRouter = require("./routes/ventas");
 var app = express();
+const dotenv = require("dotenv");
+dotenv.config();
+
 
 var mongoose = require('mongoose');
 mongoose.set('strictQuery',false);
@@ -32,6 +35,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/vehiculos", VehiculoRouter);
+app.use("/ventas", VentaRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var Usuario = require("../models/Usuario.js");
-var Vehiculo = require("../models/Vehiculo.js");
+var Usuario = require("../models/Usuario");
+var Vehiculo = require("../models/Vehiculo");
 
 var VentaSchema = new Schema({
 
@@ -19,7 +19,7 @@ Id_comprador: {
     ref: "Usuario",
 },  
 fecha: { type: Date, required: true },
-precio: { type: Number, required: true },
+precio: { type: Number, required: true }
 });
 
 module.exports = mongoose.model("Venta ", VentaSchema);
