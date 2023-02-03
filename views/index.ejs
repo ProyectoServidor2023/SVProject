@@ -2,10 +2,148 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
   </head>
   <body>
+    <div class="container-fluid">
+      <!--Header-->
+      <header class="row">
+        <div class="col-lg-12">
+          <h1>SellCars</h1>
+        </div>
+      </header>
+      <div class="row">
+        <!--nav-->
+        <nav class="navbar navbar-expand-md" id="fondonav">
+          <div class="container-fluid">
+            <button
+              id="menuhamburguesa"
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand d-md-none d-block" href="#">Menú</a>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"
+                    >Inicio</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Informes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Gráficos</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="25"
+                      height="25"
+                      fill="currentColor"
+                      class="bi bi-person-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                      />
+                    </svg>
+                  </a>
+                  <ul class="dropdown-menu" id="desplegableperfil">
+                    <li>
+                      <a class="dropdown-item" href="#">Perfil</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Modificar Contraseña</a>
+                    </li>
+                    <li>
+                      <hr class="dropdown-divider" />
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <footer class="container-fluid">
+      <div class="row">
+        <p id="direccion" class="col-3">
+          Av. Virgen blanca, 17 Castilleja-Sevilla
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-geo-alt-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+            />
+          </svg>
+        </p>
+        <div class="col-3">
+          <p class="tituloFooter">Secciones</p>
+          <p>Entradas</p>
+          <p>Login</p>
+          <p>Registro</p>
+        </div>
+        <div class="col-3">
+          <p class="tituloFooter">Etiquetas</p>
+          <p>#Carreras</p>
+          <p>#Corredores</p>
+          <p>#Deportes</p>
+        </div>
+        <div class="col-3">
+          <p class="tituloFooter">Categorías</p>
+          <p>Maratones</p>
+          <p>Carreras Populares</p>
+          <p>Carreras Benéficas</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              fill="currentColor"
+              class="bi bi-cc-circle"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM5.408 5.89c-.83 0-1.318.64-1.318 1.753v.742c0 1.108.479 1.727 1.318 1.727.69 0 1.138-.435 1.187-1.05h1.147v.114c-.058 1.147-1.029 1.938-2.343 1.938-1.612 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.319 0 2.29.812 2.343 1.999v.11H6.595c-.049-.638-.506-1.108-1.187-1.108Zm5.404 0c-.831 0-1.319.64-1.319 1.753v.742c0 1.108.48 1.727 1.319 1.727.69 0 1.138-.435 1.186-1.05h1.147v.114c-.057 1.147-1.028 1.938-2.342 1.938-1.613 0-2.518-1.028-2.518-2.729v-.747c0-1.7.914-2.75 2.518-2.75 1.318 0 2.29.812 2.342 1.999v.11h-1.147c-.048-.638-.505-1.108-1.186-1.108Z"
+              />
+            </svg>
+            Imágenes CC Reconocimiento - No Comercial
+          </p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>
