@@ -17,4 +17,4 @@ var VehicleSchema = new Schema({
   Anyo: { type: Date }
 });
 
-module.exports = mongoose.model("Vehículo", VehicleSchema);
+module.exports = mongoose.model("Vehiculo", VehicleSchema);
