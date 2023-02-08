@@ -22,4 +22,4 @@ fecha: { type: Date, required: true },
 precio: { type: Number, required: true }
 });
 
-module.exports = mongoose.model("Venta ", VentaSchema);
+module.exports = mongoose.model("Venta", VentaSchema);
