@@ -17,11 +17,11 @@ router.get("/", function (req, res, next) {
 });
 
 // GET de un único vehículo por su Id
-router.get("/:id", function (req, res, next) {
-  Vehiculo.findById(req.params.id, function (err, vehiculoinfo) {
-    if (err) res.status(500).send(err);
-    else res.status(200).json(vehiculoinfo);
-  }).populate('Propietario');
+router.get('/all/:id', function(req, res, next) {
+  Vehiculo.find({'Vehiculo': req.params.id }).sort('-Tipo').populate('Propietario').exec(function(err, vehiculos) {
+      if (err) res.status(500).send(err);
+      else res.status(200).json(vehiculos);
+  });
 });
 
 // POST de un nuevo vehículo
