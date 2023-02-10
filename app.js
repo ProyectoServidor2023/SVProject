@@ -4,22 +4,21 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var usersRouter = require("./routes/usuarios");
 var VehiculoRouter = require("./routes/vehiculos");
 var VentaRouter = require("./routes/ventas");
 var app = express();
 const dotenv = require("dotenv");
 dotenv.config();
 
-
-var mongoose = require('mongoose');
-mongoose.set('strictQuery',false);
-mongoose.connect(process.env.DB_URI, {
-   useNewUrlParser:true 
-  }
-  )
-.then(() => console.log('connection successful'))
-.catch((err) => console.error(err));
+var mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+mongoose
+  .connect(process.env.DB_URI, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("connection successful"))
+  .catch((err) => console.error(err));
 var db = mongoose.connection;
 var app = express();
 
@@ -34,7 +33,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/usuarios", usersRouter);
 app.use("/vehiculos", VehiculoRouter);
 app.use("/ventas", VentaRouter);
 
