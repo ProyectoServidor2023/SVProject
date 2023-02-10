@@ -1,31 +1,38 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var db = mongoose.connection;
 
 //Modelos
-var User = require('../models/Usuario.js');
-var Vehiculo = require('../models/Vehiculo.js');
-var Venta = require('../models/Venta');
+var User = require("../models/Usuario.js");
+var Vehiculo = require("../models/Vehiculo.js");
+var Venta = require("../models/Venta");
 
 // GET de todas las ventas
-router.get('/', function(req, res, next) {
-  Venta.find().sort('-fecha').populate('Id_vehiculo').populate('Id_comprador').exec(function(err, Venta) {
-    if (err) res.status(500).send(err);
-    else res.status(200).json(Venta);
+router.get("/", function (req, res, next) {
+  Venta.find()
+    .sort("-fecha")
+    .populate("Id_vehiculo")
+    .populate("Id_comprador")
+    .exec(function (err, Venta) {
+      if (err) res.status(500).send(err);
+      else res.status(200).json(Venta);
     });
 });
 
 // GET de una venta segun su id
-router.get('/all/:id', function(req, res, next) {
-  Venta.find({'Venta': req.params.id }).populate('Id_vehiculo').populate('Id_comprador').exec(function(err, Venta) {
+router.get("/all/:id", function (req, res, next) {
+  Venta.find({ Venta: req.params.id })
+    .populate("Id_vehiculo")
+    .populate("Id_comprador")
+    .exec(function (err, Venta) {
       if (err) res.status(500).send(err);
       else res.status(200).json(Venta);
-  });
+    });
 });
 
-// POST de una venta 
+// POST de una venta
 router.post("/", function (req, res, next) {
   Venta.create(req.body, function (err, Venta) {
     if (err) res.status(500).send(err);
@@ -42,10 +49,10 @@ router.put("/:id", function (req, res, next) {
 });
 
 // DELETE de una venta segun su id
-router.delete('/:id', function(req, res, next) {
-  Venta.findByIdAndDelete(req.params.id, function(err, Venta) {
-  if (err) res.status(500).send(err);
-  else res.sendStatus(200);
+router.delete("/:id", function (req, res, next) {
+  Venta.findByIdAndDelete(req.params.id, function (err, Venta) {
+    if (err) res.status(500).send(err);
+    else res.sendStatus(200);
   });
 });
 
