@@ -17,8 +17,8 @@ router.get("/", function (req, res, next) {
 });
 
 // GET de un único vehículo por su Id
-router.get("/all/:id", function (req, res, next) {
-  Vehiculo.find({ Vehiculo: req.params.id })
+router.get("/:id", function (req, res, next) {
+  Vehiculo.findById(req.params.id)
     .sort("-Tipo")
     .populate("Propietario")
     .exec(function (err, vehiculos) {
