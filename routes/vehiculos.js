@@ -8,7 +8,7 @@ var db = mongoose.connection;
 // GET del listado de vehículos ordenados por fecha de creación
 router.get("/", function (req, res, next) {
   Vehiculo.find()
-    .sort("-Tipo")
+    .sort("-Precio")
     .populate("Propietario")
     .exec(function (err, posts) {
       if (err) res.status(500).send(err);
@@ -16,16 +16,40 @@ router.get("/", function (req, res, next) {
     });
 });
 
+//Get Listar vehículos por modelo
+router.get('/modelo/:model', function(req, res) {
+  let parametro = req.params.model;
+  Vehiculo.find({Modelo: {$regex:parametro}}, function(err, vehiculo) {
+      if (err) res.status(500).send('¡No hay coches con ese modelo disponibles!');
+      // Si hay modelos disponibles...
+      if (vehiculo != null) {
+          res.status(200).json(vehiculo);
+      } else res.status(401).send({ err });
+  });
+});
+
+//Get Listar vehículos por tipo
+router.get('/tipo/:type', function(req, res) {
+  let parametro = req.params.type
+  Vehiculo.find({Tipo: {$regex:parametro}}, function(err, vehiculo) {
+      if (err) res.status(500).send('¡No hay coches con ese tipo disponibles!');
+      // Si hay modelos disponibles...
+      if (vehiculo != null) {
+          res.status(200).json(vehiculo);
+      } else res.status(401).send({ err });
+  });
+});
+
 // GET de un único vehículo por su Id
 router.get("/:id", function (req, res, next) {
   Vehiculo.findById(req.params.id)
-    .sort("-Tipo")
     .populate("Propietario")
     .exec(function (err, vehiculos) {
       if (err) res.status(500).send(err);
       else res.status(200).json(vehiculos);
     });
 });
+
 
 // POST de un nuevo vehículo
 router.post("/", function (req, res, next) {
