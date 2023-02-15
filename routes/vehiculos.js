@@ -7,6 +7,19 @@ var db = mongoose.connection;
 
 // GET del listado de vehículos ordenados por fecha de creación
 router.get("/", function (req, res, next) {
+  let parametro = req.query.Tipo
+
+  if(parametro != null){
+
+  Vehiculo.find({Tipo: {$regex:parametro}}, function(err, vehiculo) {
+    if (err) res.status(500).send('¡No hay coches con ese tipo disponibles!');
+    // Si hay modelos disponibles...
+    if (vehiculo != null) {
+        res.status(200).json(vehiculo);
+    } else res.status(401).send({ err });
+  });
+} else{
+
   Vehiculo.find()
     .sort("-Precio")
     .populate("Propietario")
@@ -14,6 +27,7 @@ router.get("/", function (req, res, next) {
       if (err) res.status(500).send(err);
       else res.status(200).json(posts);
     });
+  }
 });
 
 //Get Listar vehículos por modelo
