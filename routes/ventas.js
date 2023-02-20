@@ -12,7 +12,7 @@ var Venta = require("../models/Venta");
 // GET de todas las ventas
 router.get("/", function (req, res, next) {
   Venta.find()
-    .sort("-fecha").populate("Id_vehiculo").populate("Id_propietario").populate("Id_comprador").exec(function (err, Venta) {
+    .sort("-fecha").populate("Id_vehiculo", ["Matricula", "Tipo"]).populate("Id_propietario").populate("Id_comprador").exec(function (err, Venta) {
       if (err) res.status(500).send(err);
       else res.status(200).json(Venta) 
     });
@@ -44,6 +44,7 @@ router.put("/:id", function (req, res, next) {
     else res.sendStatus(200);
   });
 });
+
 
 // DELETE de una venta segun su id
 router.delete("/:id", function (req, res, next) {
