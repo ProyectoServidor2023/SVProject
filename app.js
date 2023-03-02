@@ -57,6 +57,33 @@ app.post('/registrar_venta', [
   
 })
 
+app.get("/vehiculos", (req, res) => {
+  res.render("vehiculos");
+})
+
+app.post('/registrar_vehiculo', [
+  body('Matricula', 'Ingreese número de matrícula válido').exists().isLength({ min: 7, max: 7}),
+  body('Propietario', 'Ingreese Id de propietario válido').exists().isLength({ min: 10, max: 40}),
+  body('Tipo', 'Ingreese Tipo').exists().isLength({ min: 0, max: 30 }),
+  body('Modelo', 'Ingreese Modelo').exists().isLength({ min: 1, max: 50 }),
+  body('Color', 'Ingreese Color').exists().isLength({ min: 1, max: 20 }),
+  body('Descripcion', 'Ingreese descripcion').exists().isLength({ min: 0, max: 100 }),
+  body('Precio', 'Ingreese precio').exists().isLength({ min: 1, max: 5 }),
+  body('Año', 'Ingreese año').exists().isLength({ min: 4, max: 4 }),
+], (req, res) => {
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(req.body)
+      const valores = req.body  
+      const validaciones = errors.array()  
+      res.render('vehiculo', {validaciones:validaciones, valores:valores})  
+    } else {
+      res.send("Validaciones correctas")
+    }
+  
+})
+
+
 app.use("/", indexRouter);
 app.use("/usuarios", usersRouter);
 app.use("/vehiculos", VehiculoRouter);
