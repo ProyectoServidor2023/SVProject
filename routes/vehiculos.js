@@ -9,6 +9,21 @@ var db = mongoose.connection;
 router.get("/", function (req, res, next) {
   Vehiculo.find()
     .sort("-Tipo")
+  let parametro = req.query.Tipo
+
+  if(parametro != null){
+
+  Vehiculo.find({Tipo: {$regex:parametro}}, function(err, vehiculo) {
+    if (err) res.status(500).send('¡No hay coches con ese tipo disponibles!');
+    // Si hay modelos disponibles...
+    if (vehiculo != null) {
+        res.status(200).json(vehiculo);
+    } else res.status(401).send({ err });
+  });
+} else{
+
+  Vehiculo.find()
+    .sort("-Precio")
     .populate("Propietario")
     .exec(function (err, posts) {
       if (err) res.status(500).send(err);
@@ -20,12 +35,43 @@ router.get("/", function (req, res, next) {
 router.get("/all/:id", function (req, res, next) {
   Vehiculo.find({ Vehiculo: req.params.id })
     .sort("-Tipo")
+
+});
+
+//Get Listar vehículos por modelo
+router.get('/modelo/:model', function(req, res) {
+  let parametro = req.params.model;
+  Vehiculo.find({Modelo: {$regex:parametro}}, function(err, vehiculo) {
+      if (err) res.status(500).send('¡No hay coches con ese modelo disponibles!');
+      // Si hay modelos disponibles...
+      if (vehiculo != null) {
+          res.status(200).json(vehiculo);
+      } else res.status(401).send({ err });
+  });
+});
+
+//Get Listar vehículos por tipo
+router.get('/tipo/:type', function(req, res) {
+  let parametro = req.params.type
+  Vehiculo.find({Tipo: {$regex:parametro}}, function(err, vehiculo) {
+      if (err) res.status(500).send('¡No hay coches con ese tipo disponibles!');
+      // Si hay modelos disponibles...
+      if (vehiculo != null) {
+          res.status(200).json(vehiculo);
+      } else res.status(401).send({ err });
+  });
+});
+
+// GET de un único vehículo por su Id
+router.get("/:id", function (req, res, next) {
+  Vehiculo.findById(req.params.id)
     .populate("Propietario")
     .exec(function (err, vehiculos) {
       if (err) res.status(500).send(err);
       else res.status(200).json(vehiculos);
     });
 });
+
 
 // POST de un nuevo vehículo
 router.post("/", function (req, res, next) {

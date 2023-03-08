@@ -12,17 +12,14 @@ var Venta = require("../models/Venta");
 // GET de todas las ventas
 router.get("/", function (req, res, next) {
   Venta.find()
-    .sort("-fecha")
-    .populate("Id_vehiculo")
-    .populate("Id_comprador")
-    .exec(function (err, Venta) {
+    .sort("-fecha").populate("Id_vehiculo", ["Matricula", "Tipo"]).populate("Id_propietario").populate("Id_comprador").exec(function (err, Venta) {
       if (err) res.status(500).send(err);
-      else res.status(200).json(Venta);
+      else res.status(200).json(Venta) 
     });
 });
 
 // GET de una venta segun su id
-router.get("/all/:id", function (req, res, next) {
+router.get("/:id", function (req, res, next) {
   Venta.find({ Venta: req.params.id })
     .populate("Id_vehiculo")
     .populate("Id_comprador")

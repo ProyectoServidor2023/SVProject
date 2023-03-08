@@ -10,6 +10,8 @@ var VentaRouter = require("./routes/ventas");
 var app = express();
 const dotenv = require("dotenv");
 dotenv.config();
+const { body, validationResult } = require("express-validator");
+
 
 var mongoose = require("mongoose");
 mongoose.set("strictQuery", false);
@@ -31,6 +33,85 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Validaciones de Ventas
+
+app.get("/ventas", (req, res) => {
+  res.render("ventas");
+})
+
+app.post('/registrar_venta', [
+  body('vehiculo', 'Ingreese Id de vehiculo válido').exists().isLength({ min: 10, max: 40}),
+  body('propietario', 'Ingreese Id de propietario válido').exists().isLength({ min: 10, max: 40}),
+  body('comprador', 'Ingreese Id de comprador válido').exists().isLength({ min: 10, max: 40}),
+  body('fecha', 'Ingreese Fecha').exists().isLength({ min: 8, max: 8 }),
+  body('precio', 'Ingreese Precio').exists().isLength({ min: 1, max: 10 }),
+], (req, res) => {
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(req.body)
+      const valores = req.body  
+      const validaciones = errors.array()  
+      res.render('ventas', {validaciones:validaciones, valores:valores})  
+    } else {
+      res.send("Validaciones correctas")
+    }
+  
+})
+
+// Validaciones de Vehiculos
+
+app.get("/vehiculos", (req, res) => {
+  res.render("vehiculos");
+})
+
+app.post('/registrar_vehiculo', [
+  body('Matricula', 'Ingreese número de matrícula válido').exists().isLength({ min: 7, max: 7}),
+  body('Propietario', 'Ingreese Id de propietario válido').exists().isLength({ min: 10, max: 40}),
+  body('Tipo', 'Ingreese Tipo').exists().isLength({ min: 0, max: 30 }),
+  body('Modelo', 'Ingreese Modelo').exists().isLength({ min: 1, max: 50 }),
+  body('Color', 'Ingreese Color').exists().isLength({ min: 1, max: 20 }),
+  body('Descripcion', 'Ingreese descripcion').exists().isLength({ min: 0, max: 100 }),
+  body('Precio', 'Ingreese precio').exists().isLength({ min: 1, max: 5 }),
+  body('Año', 'Ingreese año').exists().isLength({ min: 4, max: 4 }),
+], (req, res) => {
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(req.body)
+      const valores = req.body  
+      const validaciones = errors.array()  
+      res.render('vehiculo', {validaciones:validaciones, valores:valores})  
+    } else {
+      res.send("Validaciones correctas")
+    }
+  
+})
+
+// Validaciones de Usuarios
+
+app.get("/usuarios", (req, res) => {
+  res.render("usuarios");
+})
+
+app.post('/registrar_usuario', [
+  body('dni', 'Ingreese un DNI valido').exists().isLength({ min: 9, max: 10}),
+  body('nombre', 'Ingreese un Nombre valido').exists().isLength({ min: 3, max: 333}),
+  body('apellidos', 'Ingreese Apellidos validos').exists().isLength({ min: 3, max: 333}),
+  body('direcion', 'Ingreese una direcion valida').exists().isLength({ min: 3, max: 333 }),
+  body('correo', 'Ingreese un Email valido').exists().isEmail(),
+  body('telefono', 'Ingreese un telefono valido').exists().isInt().isLength({ min: 9, max: 9 }),
+], (req, res) => {
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(req.body)
+      const valores = req.body  
+      const validaciones = errors.array()  
+      res.render('usuarios', {validaciones:validaciones, valores:valores})  
+    } else {
+      res.send("Validaciones correctas")
+    }
+  
+})
 
 app.use("/", indexRouter);
 app.use("/usuarios", usersRouter);
