@@ -6,7 +6,6 @@ var db = mongoose.connection;
 const Usuario = require("../models/Usuario");
 
 // Listar todos los usuarios
-
 router.get("/", function (req, res, next) {
   Usuario.find()
     .sort("-creationdate")
@@ -17,7 +16,6 @@ router.get("/", function (req, res, next) {
 });
 
 // Obterner usuario por id
-
 router.get("/:id", function (req, res, next) {
   Usuario.findById(req.params.id, function (err, usuario) {
     if (err) res.status(500).send(err);
@@ -45,7 +43,6 @@ router.post("/", function (req, res, next) {
 });
 
 // Actualizar usuario
-
 router.put("/:id", function (req, res, next) {
   Usuario.findByIdAndUpdate(req.params.id, req.body, function (err, usuario) {
     if (err) res.status(500).send(err);
@@ -54,7 +51,6 @@ router.put("/:id", function (req, res, next) {
 });
 
 // Eliminar usuario
-
 router.delete("/:id", function (req, res, next) {
   Usuario.findByIdAndDelete(req.params.id, function (err, usuario) {
     if (err) res.status(500).send(err);

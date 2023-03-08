@@ -7,8 +7,6 @@ var db = mongoose.connection;
 
 // GET del listado de vehículos ordenados por fecha de creación
 router.get("/", function (req, res, next) {
-  Vehiculo.find()
-    .sort("-Tipo")
   let parametro = req.query.Tipo
 
   if(parametro != null){
@@ -29,13 +27,7 @@ router.get("/", function (req, res, next) {
       if (err) res.status(500).send(err);
       else res.status(200).json(posts);
     });
-});
-
-// GET de un único vehículo por su Id
-router.get("/all/:id", function (req, res, next) {
-  Vehiculo.find({ Vehiculo: req.params.id })
-    .sort("-Tipo")
-
+  }
 });
 
 //Get Listar vehículos por modelo
@@ -71,7 +63,6 @@ router.get("/:id", function (req, res, next) {
       else res.status(200).json(vehiculos);
     });
 });
-
 
 // POST de un nuevo vehículo
 router.post("/", function (req, res, next) {
