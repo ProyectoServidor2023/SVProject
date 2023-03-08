@@ -34,6 +34,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// Validaciones de Ventas
+
 app.get("/ventas", (req, res) => {
   res.render("ventas");
 })
@@ -56,6 +58,8 @@ app.post('/registrar_venta', [
     }
   
 })
+
+// Validaciones de Vehiculos
 
 app.get("/vehiculos", (req, res) => {
   res.render("vehiculos");
@@ -83,6 +87,31 @@ app.post('/registrar_vehiculo', [
   
 })
 
+// Validaciones de Usuarios
+
+app.get("/usuarios", (req, res) => {
+  res.render("usuarios");
+})
+
+app.post('/registrar_usuario', [
+  body('dni', 'Ingreese un DNI valido').exists().isLength({ min: 9, max: 10}),
+  body('nombre', 'Ingreese un Nombre valido').exists().isLength({ min: 3, max: 333}),
+  body('apellidos', 'Ingreese Apellidos validos').exists().isLength({ min: 3, max: 333}),
+  body('direcion', 'Ingreese una direcion valida').exists().isLength({ min: 3, max: 333 }),
+  body('correo', 'Ingreese un Email valido').exists().isEmail(),
+  body('telefono', 'Ingreese un telefono valido').exists().isInt().isLength({ min: 9, max: 9 }),
+], (req, res) => {
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      console.log(req.body)
+      const valores = req.body  
+      const validaciones = errors.array()  
+      res.render('usuarios', {validaciones:validaciones, valores:valores})  
+    } else {
+      res.send("Validaciones correctas")
+    }
+  
+})
 
 app.use("/", indexRouter);
 app.use("/usuarios", usersRouter);
